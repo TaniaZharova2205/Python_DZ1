@@ -2,10 +2,7 @@ import streamlit as st
 import pandas as pd
 import requests
 from datetime import datetime
-from urllib.request import urlopen
 import plotly.graph_objs as go
-import plotly.express as px
-from plotly.subplots import make_subplots
 
 data = []
 
@@ -72,10 +69,16 @@ def graph(df):
     fig.add_trace(go.Scatter(x=df_anomaly['timestamp'], y=df_anomaly['temperature'], mode='markers', marker=dict(size=4, symbol='circle'),name="Аномальные значения температуры"))
     fig.update_layout(
         legend_orientation="h",
-        title="Температура и скользящее среднее температуры с интервалом ±2σ",
+        title={
+            'text' : "Температура и скользящее среднее температуры с интервалом ±2σ",
+            'y':0.9,
+            'x':0.5,
+            'xanchor': 'center',
+            'yanchor': 'top'
+        },
         xaxis_title="Дата",
         yaxis_title="Температура",
-        margin=dict(l=0, r=0, t=100, b=0)
+        margin=dict(l=0, r=0, t=100, b=0),
     )
     st.plotly_chart(fig, use_container_width=True)
 
